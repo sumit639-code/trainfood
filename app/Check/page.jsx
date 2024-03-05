@@ -1,15 +1,24 @@
 "use client"
 import Link from 'next/link';
-import React from 'react'
+import React, { useContext } from 'react';
+
 import { useRouter } from 'next/navigation';
+import { userLocation, userTrain } from '../context/Loc';
 
 const page = () => {
-    const router = useRouter();
-  const query = router.query
-  console.log(query)
+  let location = useContext(userLocation);
+  let data = useContext(userTrain)
+  // location.setLocation("hi");
+  // console.log(location.Tlocation)
+  //   const router = useRouter();
+  // const query = router.query
+  // console.log(query)
   return (
     <>
-      <Link href={'/'} className='bg-blue-400'>cllick</Link>
+      <button onClick={()=>{
+        console.log(data.Tnum,location.Tlocation)
+      }}>SHOW</button>
+      <Link href={'/'} className='bg-blue-400'>{`${location.Tlocation}`}</Link>
     </>
   )
 }

@@ -1,12 +1,13 @@
 "use client";
 
-import React from "react";
+import React, { useContext } from "react";
 import { useState } from "react";
 import Image from "next/image";
 import { CiSearch } from "react-icons/ci";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { useRouter } from "next/navigation";
+import { userLocation, userTrain } from "../context/Loc";
 
 async function Get(num) {
   let ans = await fetch(`https://api.railwayapi.site/api/v1/trains/${num}`);
@@ -17,6 +18,8 @@ async function Get(num) {
   return ans.json();
 }
 const search = () => {
+  const trainnum = useContext(userTrain);
+  const locations = useContext(userLocation);
   const router = useRouter();
   async function get2() {
     const dat = await Get(trainval);
@@ -61,15 +64,10 @@ const search = () => {
             className="sea p-2 rounded-full bg-zinc-100 cursor-pointer px-6 py-3 mx-2 flex justify-between gap-3 items-center transition hover:-translate-y-1"
             onClick={async () => {
               // setData(await get2());
-              console.log(await get2());
-              console.log(location);
-              // router.push(
-              //   {
-              //     pathname: "/Check",
-              //     query: { name: "fji" },
-              //   },
-              //   "/Check"
-              // );
+              trainnum.setTnum(await get2());
+              locations.setLocation(location);
+              console.log(trainnum.Tnum,locations.Tlocation)
+              router.push('Check');
               // router.refresh
             }}
           >
