@@ -8,7 +8,9 @@ const page = () => {
   const query = router.query
   console.log(query)
   return (
-    <div>page</div>
+    <>
+      <Link href={'/'} className='bg-blue-400'>cllick</Link>
+    </>
   )
 }
 
